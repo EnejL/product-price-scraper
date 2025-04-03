@@ -8,7 +8,7 @@ const email = process.env.EMAIL;
 const name = process.env.NAME;
 const mailjetApiKey = process.env.MAILJET_API_KEY;
 const mailjetApiSecret = process.env.MAILJET_API_SECRET;
-const url = "https://www.amazon.nl/-/en/dp/B0CVHHJ18D/?coliid=I3Q3CRV384RJQW&colid=1ZLJD8L1QFESH&ref_=list_c_wl_lv_ov_lig_dp_it&th=1";
+const url = "https://www.rebuy.nl/i,15186111/smartwatches/apple-watch-ultra-2-49-mm-titanium-kast-naturel-op-ocean-bandje-oranje-wi-fi-plus-cellular";
 
 // Scrape data from the specified page
 async function scrapePage(url) {
@@ -17,13 +17,13 @@ async function scrapePage(url) {
         const html = response.data;
         const $ = cheerio.load(html);
 
-        // Scrape the price of the product
-        const price = $("span.a-price-whole").text().trim();
+        // Scrape the price of the product and save it in a variable
+        const price = $(".ry-h3.mb-4").text().trim();
 
         console.log(`Scraped price: ${price}`);
 
         // Send the price via email
-        // await sendEmail(price);
+        await sendEmail(price);
 
     } catch (err) {
         console.error(`Failed to scrape page ${url}:`, err);
